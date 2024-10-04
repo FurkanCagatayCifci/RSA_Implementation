@@ -1,0 +1,32 @@
+[
+  {
+    "ContainingType": "WebAPI.Controllers.RootController",
+    "Method": "Index",
+    "RelativePath": "api/fileUpload/index",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.FileUploadController",
+    "Method": "Upload",
+    "RelativePath": "api/fileUpload/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.RootController",
+    "Method": "Index",
+    "RelativePath": "api/index",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
