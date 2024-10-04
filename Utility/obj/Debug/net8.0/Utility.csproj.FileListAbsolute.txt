@@ -13,3 +13,4 @@ F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\De
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Debug\net8.0\refint\Utility.dll
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Debug\net8.0\Utility.pdb
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Debug\net8.0\ref\Utility.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Debug\net8.0\Utility.sourcelink.json

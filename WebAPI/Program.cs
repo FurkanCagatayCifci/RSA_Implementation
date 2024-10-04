@@ -2,24 +2,32 @@ using System.Reflection;
 
 using Microsoft.AspNetCore.Mvc;
 
-public class Program
+using Utility.Algorithm;
+namespace WebAPI
 {
-	public static void Main(string[] args)
+	public class Program
 	{
-		var builder = WebApplication.CreateBuilder(args);
-
-		builder.Services.AddControllers();
-		builder.Services.AddEndpointsApiExplorer();
-		var app = builder.Build();
-		app.UseHttpsRedirection();
-		app.MapControllers();
-		app.UseAuthentication();
-		app.UseAuthorization();
-		app.UseCors(configurePolicy: options =>
+		protected internal static RSA rsa = new RSA(
+			Utility.Helper.Helper.GetRandomPrime(4),
+			Utility.Helper.Helper.GetRandomPrime(4)
+		);
+		public static void Main(string[] args)
 		{
-			options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+			var builder = WebApplication.CreateBuilder(args);
 
-		});
-		app.Run();
+			builder.Services.AddControllers();
+			builder.Services.AddEndpointsApiExplorer();
+			var app = builder.Build();
+			app.UseHttpsRedirection();
+			app.MapControllers();
+			app.UseAuthentication();
+			app.UseAuthorization();
+			app.UseCors(configurePolicy: options =>
+			{
+				options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+
+			});
+			app.Run();
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Buffers;
 using System.IO;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -8,94 +9,234 @@ using Microsoft.VisualBasic;
 
 namespace Utility
 {
-	public static class FileOperations
+	namespace IO
 	{
+		public static class FileOperations
+		{
 
-		public static string CreateFileName(string fileName)
-		{
-			return new String(DateTime.UnixEpoch.ToString() + "_" + fileName);
-		}
-		private static void CheckFile(string path)
-		{
-			if (path == null)
+			public static string CreateFileName(string fileName)
 			{
-				throw new ArgumentNullException("path");
+				return new String(DateTime.UnixEpoch.ToString() + "_" + fileName);
 			}
-			if (File.Exists(path))
+			private static void CheckFile(string path)
 			{
-				throw new Exception("File already exists");
-			}
-		}
-		public static async Task<int> SaveFiles(IFormFileCollection formFiles)
-		{
-			var tasks = new List<Task<int>>();
-			foreach (var formFile in formFiles)
-			{
-				tasks.Add(SaveFile(formFile));
-			}
-			new Task(() =>
-			{
-				while (tasks.FindAll(f => f.IsCompleted == false).Any())
+				if (path == null)
 				{
-
+					throw new ArgumentNullException("path");
 				}
-			}).Wait(TimeSpan.FromSeconds(10));
-			return tasks.FindAll(f => f.IsCompleted == true).Count;
-		}
-		public static async Task<int> SaveFile(IFormFile file)
-		{
-			try
-			{
-				string fileName = CreateFileName(file.FileName);
-				CheckFile(fileName);
-				File.Create(Core.ProjectSystem.UploadSaveLocation + fileName).Close();
-				return 0;
+				if (File.Exists(path))
+				{
+					throw new Exception("File already exists");
+				}
 			}
-			catch (Exception ex)
+			public static async Task<int> SaveFiles(IFormFileCollection formFiles)
 			{
-				return -1;
+				var tasks = new List<Task<int>>();
+				foreach (var formFile in formFiles)
+				{
+					tasks.Add(SaveFile(formFile));
+				}
+				new Task(() =>
+				{
+					while (tasks.FindAll(f => f.IsCompleted == false).Any())
+					{
+
+					}
+				}).Wait(TimeSpan.FromSeconds(10));
+				return tasks.FindAll(f => f.IsCompleted == true).Count;
+			}
+			public static async Task<int> SaveFile(IFormFile file)
+			{
+				try
+				{
+					string fileName = CreateFileName(file.FileName);
+					CheckFile(fileName);
+					File.Create(Core.ProjectSystem.UploadSaveLocation + fileName).Close();
+					file.CopyTo(File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None));
+					return 0;
+				}
+				catch (Exception ex)
+				{
+					return -1;
+				}
 			}
 		}
 	}
-	public static class Helper
+	namespace Helper
 	{
-		public static int GetBitLengthASCII(string str)
+		public static class Helper
 		{
-			return Encoding.ASCII.GetBytes(str).Length * 8;
-		}
-		public static int GetBitLengthUTF8(string str)
-		{
-			return Encoding.UTF8.GetBytes(str).Length * 8;
-		}
-		public static long GetRandomPrime(int length)
-		{
-			int counter = 0;
-			var bytes = new byte[length - 1];
-			long min = (long)Math.Pow(10, length - 1) - 1;
-			long max = (long)Math.Pow(10, length) - 1;
-			while (counter < 10000)
+			public static int GetBitLengthASCII(string str)
 			{
-				
-				long x = Random.Shared.NextInt64(min, max);
-				if (IsPrime(x))
-					return (long)x;
-				counter++;
+				return Encoding.ASCII.GetBytes(str).Length * 8;
 			}
-			throw new ArgumentOutOfRangeException();
-		}
-
-		public static bool IsPrime(long number)
-		{
-			//trial division
-			for (var i = 2; i <= Math.Sqrt(number); i++)
+			public static int GetBitLengthUTF8(string str)
 			{
-				if (number % i == 0)
+				return Encoding.UTF8.GetBytes(str).Length * 8;
+			}
+			public static long GetRandomPrime(int length)
+			{
+				int counter = 0;
+				var bytes = new byte[length - 1];
+				long min = (long)Math.Pow(10, length - 1) - 1;
+				long max = (long)Math.Pow(10, length) - 1;
+				while (counter < 10000)
 				{
-					return false;
+
+					long x = Random.Shared.NextInt64(min, max);
+					if (IsPrime(x))
+						return (long)x;
+					counter++;
+				}
+				throw new ArgumentOutOfRangeException();
+			}
+
+			public static bool IsPrime(long number)
+			{
+				//trial division
+				for (var i = 2; i <= Math.Sqrt(number); i++)
+				{
+					if (number % i == 0)
+					{
+						return false;
+					}
+
+				}
+				return true;
+			}
+
+			public static long GCD(long x, long y)
+			{
+				long min = Math.Min(x, y);
+				long gcd = 1;
+
+				for (long i = 2; i <= min; i++)
+				{
+					if (x % i == 0 && y % i == 0)
+					{
+						gcd = i;
+					}
+				}
+				return gcd;
+			}
+			public static BigInteger ModuloFermat(BigInteger a, BigInteger b, BigInteger n)
+			{
+				if (b >= 0)
+				{
+					return PositiveModPow(a, b, n); // Pozitif üsler için normal üs alma
+				}
+				else
+				{
+					BigInteger inverse = ModuloInverseFermat(a, n); // Modüler tersini bul
+					return PositiveModPow(inverse, -b, n); // Tersi pozitif üsse göre kullan
+				}
+			}
+
+			public static BigInteger ModuloEuler(BigInteger a, BigInteger b, BigInteger n)
+			{
+				if (b >= 0)
+				{
+					return PositiveModPow(a, b, n); // Pozitif üsler için normal üs alma
+				}
+				else
+				{
+					BigInteger inverse = ModuloInverseEuler(a, n); // Modüler tersini bul
+					return PositiveModPow(inverse, -b, n); // Tersi pozitif üsse göre kullan
+				}
+			}
+
+
+			// Pozitif üsler için hızlı üs alma (modüler üs)
+			private static BigInteger PositiveModPow(BigInteger a, BigInteger b, BigInteger n)
+			{
+				BigInteger result = 1;
+				a = a % n; // a mod n
+
+				while (b > 0)
+				{
+					if ((b & 1) == 1)  // b tekse, sonucu güncelle
+					{
+						result = (result * a) % n;
+					}
+
+					a = (a * a) % n;  // a'nın karesini al ve mod n uygula
+					b >>= 1;  // b'yi ikiye böl (bit sağa kaydır)
 				}
 
+				return result;
 			}
-			return true;
+
+			//private static BigInteger ModuloInverseEuler(BigInteger a, BigInteger n)
+			//{
+			//	BigInteger t = 0, newT = 1;
+			//	BigInteger r = n, newR = a;
+
+			//	while (newR != 0)
+			//	{
+			//		BigInteger quotient = r / newR;
+			//		(t, newT) = (newT, t - quotient * newT);
+			//		(r, newR) = (newR, r - quotient * newR);
+			//	}
+
+			//	// GCD kontrolü
+			//	if (r > 1)
+			//		throw new ArgumentException("Modüler ters yok."); // Ters yoksa hata ver
+
+			//	if (t < 0)
+			//		t += n; // Pozitif bir modülde dönüş
+
+			//	return t;
+			//}
+
+
+			private static BigInteger ModExpo(BigInteger a, BigInteger exp, BigInteger mod)
+			{
+				BigInteger result = 1;
+				a = a % mod;  // Eğer a moddan büyükse önce modunu alıyoruz
+
+				while (exp > 0)
+				{
+					// Eğer exp tek ise, sonucu güncelle
+					if ((exp % 2) == 1)
+						result = (result * a) % mod;
+
+					// exp çiftse, üs değerini ikiye böl ve tabanı karesiyle değiştir
+					exp = exp >> 1;  // exp = exp / 2
+					a = (a * a) % mod;
+				}
+
+				return result;
+			}
+
+			// Fermat'ın Küçük Teoremi kullanarak modüler tersini bulma
+			private static BigInteger ModuloInverseFermat(BigInteger a, BigInteger p)
+			{
+				// Modüler ters: a^(p-2) % p
+				return ModExpo(a, p - 2, p);
+			}
+
+
+			// Genişletilmiş Öklid Algoritması ile modüler ters bulma
+
+			private static BigInteger ModuloInverseEuler(BigInteger a, BigInteger n)
+			{
+				BigInteger t = 0, newT = 1;
+				BigInteger r = n, newR = a;
+
+				while (newR != 0)
+				{
+					BigInteger quotient = r / newR;
+					(t, newT) = (newT, t - quotient * newT);
+					(r, newR) = (newR, r - quotient * newR);
+				}
+
+				if (r > 1)
+					throw new ArgumentException("Modüler ters yok.");
+				if (t < 0)
+					t += n;
+
+				return t;
+			}
 		}
 	}
 }

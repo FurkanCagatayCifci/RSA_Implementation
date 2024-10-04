@@ -21,3 +21,4 @@ F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\De
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\Console.pdb
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\Console.genruntimeconfig.cache
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\ref\Console.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\Console.sourcelink.json

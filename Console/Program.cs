@@ -5,39 +5,50 @@ using System.Text;
 using Utility.Algorithm;
 public class Program
 {
+
 	public static void Main(string[] args)
 	{
+		Main1(args);
+	}
+
+
+	public static void Main2(string[] args)
+	{
+		Console.WriteLine(Utility.Helper.Helper.ModuloFermat(7, -1, 55));
+		Console.WriteLine(Utility.Helper.Helper.ModuloEuler(7, -1, 55));
+
+	}
+
+	public static void Main1(string[] args)
+	{
 		long p, q;
-		p = Utility.Helper.GetRandomPrime(3);
-		q = Utility.Helper.GetRandomPrime(3);
+		p = Utility.Helper.Helper.GetRandomPrime(2);
+		q = Utility.Helper.Helper.GetRandomPrime(2);
+		//p = 37;
+		//q = 11;
 		Console.WriteLine("p : " + p + " q : " + q);
-		//p = 71;
-		//q = 53;
 		RSA rsa = new RSA(p, q);
+		rsa.e = 7;
 		string message = "nabernabernabernabernabernabernabernabernabernabernabernaber";
 		//byte[] message = { 7 };
-		BigInteger[] chiper = rsa.RSAEncryption(Encoding.UTF8.GetBytes(message));
-		Console.Write(
-$"message :");
+		Console.WriteLine("message :");
 		foreach (Int16 c in message)
 		{
-			Console.Write(
-		$"{(char)c}");
+			Console.Write(String.Format("{0}", (char)c));
 		}
-		Console.Write(
-		$"\nchiper : \n"
-	);
 
+		BigInteger[] chiper = rsa.RSAEncryption(Encoding.UTF8.GetBytes(message));
+		Console.WriteLine("\nchiper : \r");
 		foreach (BigInteger chip in chiper)
 		{
-			Console.Write($"{chip:b}\t");
+			Console.Write(String.Format("{0:d}\t", (ulong)chip));
 		}
+
+		List<BigInteger> decoded = rsa.RSADecryption(chiper);
 		Console.Write($"\ndecoded chiper : ");
-		List<byte[]> decoded = rsa.RSADecryption(chiper);
 		for (int i = 0; i < decoded.Count; i++)
 		{
-			foreach (byte b in decoded[i])
-				Console.Write($"{(char)b}");
+			Console.Write((char)decoded[i]);
 		}
 	}
 }

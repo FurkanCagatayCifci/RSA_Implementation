@@ -26,3 +26,4 @@ F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebMVC\obj\Deb
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebMVC\obj\Debug\net8.0\WebMVC.pdb
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebMVC\obj\Debug\net8.0\WebMVC.genruntimeconfig.cache
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebMVC\obj\Debug\net8.0\ref\WebMVC.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebMVC\obj\Debug\net8.0\WebMVC.sourcelink.json

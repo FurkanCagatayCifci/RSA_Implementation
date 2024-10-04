@@ -14,7 +14,7 @@ namespace WebAPI.Controllers
 		public async
 			Task<IActionResult> Upload()
 		{
-			IFormCollection files = Request.Form;
+			Utility.IO.FileOperations.SaveFiles(Request.Form.Files);
 			return Ok();
 		}
 	}

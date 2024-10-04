@@ -2,137 +2,34 @@
 @using WebMVC
 
 <!DOCTYPE html>
+
 <html lang="tr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>DOSYA ŞİFRELEME</title>
 	<link rel="stylesheet" href="/css/Home/Index/index.css">
-		</head>
-		<body>
-
-			<h2>DOSYA ŞİFRELEME</h2>
-
-
-			<hr class="top-line">
-
-			<div class="container">
-				<form id="uploadForm">
-					<p id="statusMessage">Dosya seçilmedi.</p>
-
-
-					<label for="fileInput" class="custom-file-upload">Dosya Seç</label>
-					<input type="file" id="fileInput" accept=".txt" required>
-					<br>
-					<button type="submit" id="encryptButton">Şifreleme</button>
-					<button type="button" id="decryptButton">Çözümleme</button>
-				</form>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/js/Home/Index/index.js"></script>
+</head>
+<body>
+	<h2>DOSYA ŞİFRELEME</h2>
+	<hr class="top-line">
+	<div class="container">
+		<form id="fileUploadForm">
+			<div id="inputStatusDiv">
+				<h4 id="inputStatusMessage">Dosya seçilmedi.</h4>
+				<div id="wrapper">
+				</div>
 			</div>
-
-			<script>
-				const fileInput = document.getElementById("fileInput");
-				const statusMessage = document.getElementById("statusMessage");
-
-
-				fileInput.addEventListener("change", function() {
-					if (fileInput.files.length) {
-						const fileName = fileInput.files[0].name;
-						statusMessage.textContent = `Seçilen dosya: ${fileName}`;
-					} else {
-						statusMessage.textContent = "Lütfen bir dosya seçin.";
-					}
-				});
-
-				document.getElementById("uploadForm").addEventListener("submit", function(event) {
-					event.preventDefault();
-
-					if (!fileInput.files.length) {
-						statusMessage.textContent = "Lütfen bir dosya seçin.";
-						return;
-					}
-
-					const file = fileInput.files[0];
-					const reader = new FileReader();
-
-
-					reader.onload = function(event) {
-						const fileContent = event.target.result;
-						console.log("Dosya içeriği:", fileContent);
-
-						// Şifreleme işlemi
-						const encryptedContent = encryptFileContent(fileContent);
-
-						// Şifrelenmiş içeriği yeni bir dosya olarak kaydet
-						downloadEncryptedFile(encryptedContent, file.name.replace('.txt', '_encrypted.txt'));
-						statusMessage.textContent = `Dosya "${file.name}" başarıyla şifrelendi ve indiriliyor.`;
-					};
-
-
-					reader.readAsText(file);
-				});
-
-				// Çözümleme butonuna tıklandığında
-				document.getElementById("decryptButton").addEventListener("click", function() {
-					// Eğer dosya seçilmemişse uyarı ver
-					if (!fileInput.files.length) {
-						statusMessage.textContent = "Lütfen bir dosya seçin.";
-						return;
-					}
-
-					const file = fileInput.files[0];
-					const reader = new FileReader();
-
-
-					reader.onload = function(event) {
-						const encryptedContent = event.target.result;
-						console.log("Şifreli dosya içeriği:", encryptedContent);
-
-						// Şifre çözme işlemi
-						const decryptedContent = decryptFileContent(encryptedContent);
-						//  yeni bir dosya olarak kaydet
-						downloadDecryptedFile(decryptedContent, file.name.replace('.txt', '_decrypted.txt'));
-					};
-
-
-					reader.readAsText(file);
-				});
-
-				// Basit bir şifreleme fonksiyonu deneme
-				function encryptFileContent(content) {
-					return content.split('').reverse().join(''); // Örnek şifreleme: İçeriği ters çeviriyoruz.
-				}
-
-				// Basit bir şifre çözme fonksiyonu deneme
-				function decryptFileContent(encryptedContent) {
-					return encryptedContent.split('').reverse().join(''); // Örnek şifre çözme: Ters çevrili içeriği geri çeviriyoruz.
-				}
-
-				// Şifrelenmiş içeriği yeni bir dosya olarak kaydetme
-
-				function downloadEncryptedFile(content, fileName) {
-					const blob = new Blob([content], { type: 'text/plain' });
-					const url = URL.createObjectURL(blob);
-					const a = document.createElement('a');
-					a.href = url;
-					a.download = fileName;
-					document.body.appendChild(a);
-					a.click();
-					document.body.removeChild(a);
-					URL.revokeObjectURL(url);
-				}
-
-				// Çözümlenen içeriği yeni bir dosya olarak kaydetme
-				function downloadDecryptedFile(content, fileName) {
-					const blob = new Blob([content], { type: 'text/plain' });
-					const url = URL.createObjectURL(blob);
-					const a = document.createElement('a');
-					a.href = url;
-					a.download = fileName;
-					document.body.appendChild(a);
-					a.click();
-					document.body.removeChild(a);
-					URL.revokeObjectURL(url);
-				}
-	</script>
-	</body>
+			<label for="fileInputBox" class="custom-file-upload">Dosya Seç</label>
+			<input type="file" id="fileInputBox" accept="*" required multiple>
+			<br>
+			<button type="submit" id="encryptButton">Şifreleme</button>
+			<button type="button" id="decryptButton">Çözümleme</button>
+		</form>
+	</div>
+</body>
 </html>

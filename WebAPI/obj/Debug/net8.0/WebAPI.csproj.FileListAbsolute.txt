@@ -29,3 +29,4 @@ F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebAPI\obj\Deb
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebAPI\obj\Debug\net8.0\WebAPI.pdb
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebAPI\obj\Debug\net8.0\WebAPI.genruntimeconfig.cache
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebAPI\obj\Debug\net8.0\ref\WebAPI.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\WebAPI\obj\Debug\net8.0\WebAPI.sourcelink.json
