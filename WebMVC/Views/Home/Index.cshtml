@@ -5,14 +5,14 @@
 
 <html lang="tr">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>DOSYA ŞİFRELEME</title>
 	<link rel="stylesheet" href="/css/Home/Index/index.css">
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-	<script src="~/js/Home/Index/index.js"></script>
+	<script src="~/lib/jquery/dist/jquery.js" charset="utf-8"></script>
+	<script src="~/js/Home/Index/index.js" charset="utf-8"></script>
 </head>
 <body>
 	<h2>DOSYA ŞİFRELEME</h2>
@@ -20,16 +20,28 @@
 	<div class="container">
 		<form id="fileUploadForm">
 			<div id="inputStatusDiv">
-				<h4 id="inputStatusMessage">Dosya seçilmedi.</h4>
+				<h4 id="inputStatusMessage">Dosya Seçiniz</h4>
 				<div id="wrapper">
 				</div>
 			</div>
 			<label for="fileInputBox" class="custom-file-upload">Dosya Seç</label>
-			<input type="file" id="fileInputBox" accept="*" required multiple>
+			<input type="file" id="fileInputBox" accept="*" multiple required>
 			<br>
-			<button type="submit" id="encryptButton">Şifreleme</button>
-			<button type="button" id="decryptButton">Çözümleme</button>
+			<p id="loadstatus"></p>
+			<div id="button-wrapper">
+				<button type="submit" id="encryptButton">Şifreleme</button>
+				<button type="button" id="decryptButton">Çözümleme</button>
+			</div>
 		</form>
+		<div id="submit-result">
+		</div>
 	</div>
+	<dialog id="cancel-dialog">
+		<div class="cancel-confirm">
+			<p>Are you sure to cancel!</p>
+			<button class="btn btn-danger" id="yes">Yes</button>
+			<button class="btn btn-light" id="no">No</button>
+		</div>
+	</dialog>
 </body>
 </html>

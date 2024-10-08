@@ -1,17 +1,20 @@
-﻿using System.Reflection;
-
+﻿using System.Configuration;
+using System.Numerics;
+using System.Reflection;
 namespace Core
 {
-	public class Core
+	public sealed class Core
 	{
-
-	}
-	public static class ProjectSystem
-	{
-		public static string UploadSaveLocation = null;
-		static ProjectSystem()
+		static Core()
 		{
-			UploadSaveLocation = Assembly.GetEntryAssembly().Location;
+			unsafe
+			{
+				FormFileReadingBufferSize = (sizeof(BigInteger));
+				UploadSaveLocation = Assembly.GetEntryAssembly().Location;
+			}
 		}
+
+		public static string UploadSaveLocation;
+		public static int FormFileReadingBufferSize;
 	}
 }

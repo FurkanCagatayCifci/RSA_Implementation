@@ -55,7 +55,6 @@ h2 {
 	margin-bottom: 0px;
 }
 
-
 #statusMessage {
 	margin-top: 15px;
 	padding: 5px;
@@ -66,6 +65,7 @@ h2 {
 	box-sizing: border-box;
 	color: #333;
 }
+
 
 #inputStatusDiv {
 	text-align: center;
@@ -80,7 +80,8 @@ h2 {
 		flex-grow: 1;
 		flex-direction: row;
 		flex-wrap: wrap;
-		justify-content: normal;
+		justify-content: center;
 		align-content: space-between;
 		align-items: center;
+		place-items: center;
 	}

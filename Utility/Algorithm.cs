@@ -10,10 +10,16 @@ using Utility.Helper;
 
 namespace Utility.Algorithm
 {
+	public class KeyPair
+	{
+		public string x { get; set; }
+		public string n { get; set; }
+	}
+
 	public class RSA
 	{
-		long p, q, n, phi;
-
+		public long n;
+		long p, q, phi;
 		private BigInteger _e, _d;
 		public BigInteger e
 		{
@@ -72,15 +78,27 @@ namespace Utility.Algorithm
 
 			return encrypted;
 		}
-		public List<BigInteger> RSADecryption(BigInteger[] bytes)
+		public List<BigInteger> RSADecryption(byte[] bytes)
 		{
 
 			List<BigInteger> decrypted = new List<BigInteger>();
-			for (int i = 0; i < bytes.Length; i++)
+			for (int i = 0, j = 0; i < bytes.Length - 15; i++)
+			{
+				Span<byte> x = new Span<byte>(bytes, i + 15, 16);
+				decrypted.Insert(i, (Utility.Helper.Helper.ModuloFermat(new BigInteger(x), d, n)));
+				j = 0;
+			}
+			return decrypted;
+		}
+		public List<BigInteger> RSADecryption(BigInteger[] bytes)
+		{
+			List<BigInteger> decrypted = new List<BigInteger>();
+			for (int i = 0; i < bytes.Length - 1; i++)
 			{
 				decrypted.Insert(i, (Utility.Helper.Helper.ModuloFermat(bytes[i], d, n)));
 			}
 			return decrypted;
 		}
+
 	}
 }

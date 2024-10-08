@@ -1,6 +1,16 @@
 [
   {
     "ContainingType": "WebAPI.Controllers.RootController",
+    "Method": "GetPublicKey",
+    "RelativePath": "api/fileUpload/getKey",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.RootController",
     "Method": "Index",
     "RelativePath": "api/fileUpload/index",
     "HttpMethod": "GET",
@@ -14,6 +24,16 @@
     "Method": "Upload",
     "RelativePath": "api/fileUpload/upload",
     "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.RootController",
+    "Method": "GetPublicKey",
+    "RelativePath": "api/getKey",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],

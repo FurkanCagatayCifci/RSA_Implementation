@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using System.Diagnostics;
 using System.IO;
 using System.Numerics;
 using System.Security.Cryptography;
@@ -36,13 +37,15 @@ namespace Utility
 				{
 					tasks.Add(SaveFile(formFile));
 				}
-				new Task(() =>
+				var t = new Task(() =>
 				{
 					while (tasks.FindAll(f => f.IsCompleted == false).Any())
 					{
 
 					}
-				}).Wait(TimeSpan.FromSeconds(10));
+				});
+				t.Start();
+				t.Wait(TimeSpan.FromSeconds(10));
 				return tasks.FindAll(f => f.IsCompleted == true).Count;
 			}
 			public static async Task<int> SaveFile(IFormFile file)
@@ -51,7 +54,7 @@ namespace Utility
 				{
 					string fileName = CreateFileName(file.FileName);
 					CheckFile(fileName);
-					File.Create(Core.ProjectSystem.UploadSaveLocation + fileName).Close();
+					File.Create(Core.Core.UploadSaveLocation + fileName).Close();
 					file.CopyTo(File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None));
 					return 0;
 				}
@@ -59,6 +62,17 @@ namespace Utility
 				{
 					return -1;
 				}
+			}
+			public static async Task<byte[]> ReadIFormFile(IFormFile file)
+			{
+				Stream fs = file.OpenReadStream();
+				List<byte> result = new List<byte>();
+				byte[] buffer = new byte[128];
+				while (await fs.ReadAsync(buffer) > 0)
+				{
+					result.AddRange(buffer);
+				}
+				return result.ToArray();
 			}
 		}
 	}

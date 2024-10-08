@@ -22,3 +22,8 @@ F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\De
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\Console.genruntimeconfig.cache
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\ref\Console.dll
 F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\obj\Debug\net8.0\Console.sourcelink.json
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Console\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll

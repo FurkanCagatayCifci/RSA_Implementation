@@ -11,10 +11,10 @@ namespace WebAPI
 			Utility.Helper.Helper.GetRandomPrime(4),
 			Utility.Helper.Helper.GetRandomPrime(4)
 		);
+		[assembly: Core]
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
 			var app = builder.Build();
@@ -25,7 +25,7 @@ namespace WebAPI
 			app.UseCors(configurePolicy: options =>
 			{
 				options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-
+				options.Build();
 			});
 			app.Run();
 		}

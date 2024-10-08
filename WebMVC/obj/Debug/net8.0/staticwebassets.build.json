@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PT4vZiUPP88OBYX6GwGuGdAM6nkzLwuE61zKgUHvczQ=",
+  "Hash": "Eg5j1Cs/r0bfZiwvoWV1hM3waxnMIdt/8dFa+ylzUKA=",
   "Source": "WebMVC",
   "BasePath": "_content/WebMVC",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Home\\Index\\index.js"
+    },
+    {
+      "Identity": "F:\\Things\\Notlar\\Ders Notları\\7.BilgisayarMuhOzelKonularLab\\App1\\WebMVC\\wwwroot\\js\\rsa.js",
+      "SourceId": "WebMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\Things\\Notlar\\Ders Notları\\7.BilgisayarMuhOzelKonularLab\\App1\\WebMVC\\wwwroot\\",
+      "BasePath": "_content/WebMVC",
+      "RelativePath": "js/rsa.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\rsa.js"
     },
     {
       "Identity": "F:\\Things\\Notlar\\Ders Notları\\7.BilgisayarMuhOzelKonularLab\\App1\\WebMVC\\wwwroot\\js\\site.js",
