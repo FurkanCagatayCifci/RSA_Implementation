@@ -14,6 +14,7 @@ namespace WebAPI
 		[assembly: Core]
 		public static void Main(string[] args)
 		{
+			InitializeApp();
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
@@ -28,6 +29,18 @@ namespace WebAPI
 				options.Build();
 			});
 			app.Run();
+		}
+		public static void InitializeApp()
+		{
+			try
+			{
+				if(Utility.IO.FileOperations.CheckPath(Core.Core.UploadSaveLocation) == 0)
+					Directory.CreateDirectory(Core.Core.UploadSaveLocation);
+			}
+			catch (Exception)
+			{
+			}
+
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Core
 			unsafe
 			{
 				FormFileReadingBufferSize = (sizeof(BigInteger));
-				UploadSaveLocation = Assembly.GetEntryAssembly().Location;
+				UploadSaveLocation = Assembly.GetEntryAssembly().Location.Trim().Replace(Assembly.GetEntryAssembly().ManifestModule.Name, "Uploads");
 			}
 		}
 

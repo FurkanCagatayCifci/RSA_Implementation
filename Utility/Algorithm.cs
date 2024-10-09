@@ -99,6 +99,50 @@ namespace Utility.Algorithm
 			}
 			return decrypted;
 		}
+		public char[] RSADecryptionToCharArray(BigInteger[] bytes)
+		{
+			List<char> decrypted = new List<char>();
+			char[] charBuff = new char[1];
+			Span<char> buffSpan = new Span<char>(charBuff);
+			for (int i = 0; i < bytes.Length - 1; i++)
+			{
+				try
+				{
+					BigInteger x = (Utility.Helper.Helper.ModuloFermat(bytes[i], b: d, n));
+					char decrypredChar = (char)x;
+					decrypted.Insert(i, decrypredChar);
+				}
+				catch (Exception)
+				{
+
+				}
+
+			}
+			return decrypted.ToArray();
+
+		}
+		public byte[] RSADecryptionToByteArray(BigInteger[] bytes)
+		{
+			List<byte> decrypted = new List<byte>();
+			byte[] byteBuff = new byte[1];
+			Span<byte> buffSpan = new Span<byte>(byteBuff);
+			for (int i = 0; i < bytes.Length - 1; i++)
+			{
+				try
+				{
+					
+					BigInteger x = (Utility.Helper.Helper.ModuloFermat(bytes[i], b: d, n));
+					byte decrypredChar = (byte)x;
+					decrypted.Insert(i, decrypredChar);
+				}
+				catch (Exception)
+				{
+
+				}
+			}
+			return decrypted.ToArray();
+
+		}
 
 	}
 }

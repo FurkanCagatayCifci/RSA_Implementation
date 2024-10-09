@@ -17,9 +17,9 @@ namespace Utility
 
 			public static string CreateFileName(string fileName)
 			{
-				return new String(DateTime.UnixEpoch.ToString() + "_" + fileName);
+				return new String((DateTime.UtcNow - DateTime.UnixEpoch).TotalMilliseconds + "_" + fileName);
 			}
-			private static void CheckFile(string path)
+			public static int CheckPath(string path)
 			{
 				if (path == null)
 				{
@@ -29,6 +29,11 @@ namespace Utility
 				{
 					throw new Exception("File already exists");
 				}
+				else if (Directory.Exists(path))
+				{
+					throw new Exception("Directory already exists");
+				}
+				return 0;
 			}
 			public static async Task<int> SaveFiles(IFormFileCollection formFiles)
 			{
@@ -50,19 +55,29 @@ namespace Utility
 			}
 			public static async Task<int> SaveFile(IFormFile file)
 			{
+				string fileName = CreateFileName(file.FileName);
 				try
 				{
-					string fileName = CreateFileName(file.FileName);
-					CheckFile(fileName);
-					File.Create(Core.Core.UploadSaveLocation + fileName).Close();
-					file.CopyTo(File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None));
-					return 0;
+					CheckPath(fileName);
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 					return -1;
 				}
+				File.Create($"{Core.Core.UploadSaveLocation}\\{fileName}").Close();
+				file.CopyTo(File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None));
+				return 0;
 			}
+			public static async Task<int> SaveFile(IFormFile file, byte[] bytes)
+			{
+				string fileName = CreateFileName(file.FileName);
+				string path = $"{Core.Core.UploadSaveLocation}\\{fileName}";
+				CheckPath(path);
+				FileStream? fs = System.IO.File.Create(path);
+				await fs.WriteAsync(bytes);
+				return 0;
+			}
+
 			public static async Task<byte[]> ReadIFormFile(IFormFile file)
 			{
 				Stream fs = file.OpenReadStream();
