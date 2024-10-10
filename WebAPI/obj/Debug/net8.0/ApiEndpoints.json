@@ -20,6 +20,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebAPI.Controllers.RootController",
+    "Method": "GetMaxFileLength",
+    "RelativePath": "api/fileUpload/maxFileLength",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebAPI.Controllers.FileUploadController",
     "Method": "Upload",
     "RelativePath": "api/fileUpload/upload",
@@ -43,6 +53,16 @@
     "ContainingType": "WebAPI.Controllers.RootController",
     "Method": "Index",
     "RelativePath": "api/index",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.RootController",
+    "Method": "GetMaxFileLength",
+    "RelativePath": "api/maxFileLength",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

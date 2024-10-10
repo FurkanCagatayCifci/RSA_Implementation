@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 
+using Core;
+
 using Microsoft.AspNetCore.Mvc;
 
 using Utility.Algorithm;
@@ -22,7 +24,7 @@ namespace WebAPI.Controllers
 		{
 			try
 			{
-				var obj = new KeyPair()
+				KeyPair? obj = new KeyPair()
 				{
 					n = Program.rsa.n.ToString(),
 					x = Program.rsa.e.ToString()
@@ -33,6 +35,19 @@ namespace WebAPI.Controllers
 			catch (Exception e)
 			{
 				return BadRequest(e);
+			}
+		}
+		[HttpGet]
+		[Route("maxFileLength")]
+		public async Task<IActionResult> GetMaxFileLength()
+		{
+			try
+			{
+				return Ok(Core.Core.MaxFileLength);
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new Message(e.Message));
 			}
 		}
 	}

@@ -1,0 +1,16 @@
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\bin\Release\net8.0\Utility.deps.json
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\bin\Release\net8.0\Utility.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\bin\Release\net8.0\Utility.pdb
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\bin\Release\net8.0\Core.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\bin\Release\net8.0\Core.pdb
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.csproj.AssemblyReference.cache
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.GeneratedMSBuildEditorConfig.editorconfig
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.AssemblyInfoInputs.cache
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.AssemblyInfo.cs
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.csproj.CoreCompileInputs.cache
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.sourcelink.json
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.csproj.Up2Date
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\refint\Utility.dll
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\Utility.pdb
+F:\Things\Notlar\Ders Notları\7.BilgisayarMuhOzelKonularLab\App1\Utility\obj\Release\net8.0\ref\Utility.dll

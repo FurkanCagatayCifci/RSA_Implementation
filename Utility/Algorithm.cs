@@ -110,7 +110,7 @@ namespace Utility.Algorithm
 				{
 					BigInteger x = (Utility.Helper.Helper.ModuloFermat(bytes[i], b: d, n));
 					char decrypredChar = (char)x;
-					decrypted.Insert(i, decrypredChar);
+					decrypted.Add(decrypredChar);
 				}
 				catch (Exception)
 				{
@@ -123,21 +123,19 @@ namespace Utility.Algorithm
 		}
 		public byte[] RSADecryptionToByteArray(BigInteger[] bytes)
 		{
-			List<byte> decrypted = new List<byte>();
-			byte[] byteBuff = new byte[1];
-			Span<byte> buffSpan = new Span<byte>(byteBuff);
+			List<byte> decrypted = new List<byte>(bytes.Length);
 			for (int i = 0; i < bytes.Length - 1; i++)
 			{
 				try
 				{
-					
-					BigInteger x = (Utility.Helper.Helper.ModuloFermat(bytes[i], b: d, n));
+
+					BigInteger x = (Utility.Helper.Helper.ModuloFermat(bytes[i], d, n));
 					byte decrypredChar = (byte)x;
-					decrypted.Insert(i, decrypredChar);
+					decrypted.Add(decrypredChar);
 				}
 				catch (Exception)
 				{
-
+					;
 				}
 			}
 			return decrypted.ToArray();

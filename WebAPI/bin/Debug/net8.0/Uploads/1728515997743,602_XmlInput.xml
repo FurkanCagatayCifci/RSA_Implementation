@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="books.xsd"
+	   >
+	<book>
+		<title>XML Developer's Guide</title>
+		<author>Gambardella, Matthew</author>
+		<genre>Computer</genre>
+		<price>44.95</price>
+		<publish_date>2000-10-01</publish_date>
+	</book>
+	<book>
+		<title>Midnight Rain</title>
+		<author>Ralls, Kim</author>
+		<genre>Fantasy</genre>
+		<price>5.95</price>
+		<publish_date>2000-12-16</publish_date>
+	</book>
+</books>book>
+</

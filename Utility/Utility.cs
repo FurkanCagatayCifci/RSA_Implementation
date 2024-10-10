@@ -56,6 +56,8 @@ namespace Utility
 			public static async Task<int> SaveFile(IFormFile file)
 			{
 				string fileName = CreateFileName(file.FileName);
+				string path = $"{Core.Core.UploadSaveLocation}\\{fileName}";
+
 				try
 				{
 					CheckPath(fileName);
@@ -64,8 +66,13 @@ namespace Utility
 				{
 					return -1;
 				}
-				File.Create($"{Core.Core.UploadSaveLocation}\\{fileName}").Close();
-				file.CopyTo(File.Open(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.None));
+				File.Create(path).Close();
+				byte[]? buffer = new byte[file.Length];
+				Stream x = file.OpenReadStream();
+				//while (x.ReadAsync(buffer) > 0)
+				//{
+				//	File.Appe(path, buffer);
+				//}
 				return 0;
 			}
 			public static async Task<int> SaveFile(IFormFile file, byte[] bytes)
@@ -73,8 +80,8 @@ namespace Utility
 				string fileName = CreateFileName(file.FileName);
 				string path = $"{Core.Core.UploadSaveLocation}\\{fileName}";
 				CheckPath(path);
-				FileStream? fs = System.IO.File.Create(path);
-				await fs.WriteAsync(bytes);
+				System.IO.File.Create(path).Close();
+				await File.WriteAllBytesAsync(path, bytes);
 				return 0;
 			}
 
@@ -119,7 +126,6 @@ namespace Utility
 				}
 				throw new ArgumentOutOfRangeException();
 			}
-
 			public static bool IsPrime(long number)
 			{
 				//trial division

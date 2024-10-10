@@ -10,6 +10,8 @@ namespace WebAPI.Controllers
 	using System.Text;
 	using System.Web;
 
+	using Core;
+
 	using Microsoft.AspNetCore.WebUtilities;
 	using Microsoft.Extensions.Primitives;
 
@@ -31,6 +33,10 @@ namespace WebAPI.Controllers
 						byte[] formBytes = await Utility.IO.FileOperations.ReadIFormFile(file);
 						string formString = Encoding.UTF8.GetString(formBytes);
 						string[] chiperString = Encoding.UTF8.GetString(formBytes).Split(",");
+						if (chiperString.Length > Core.MaxFileLength)
+						{
+							return BadRequest(new Message($"Dosya boyutu maksimum {Core.MaxFileLength} olmali"));
+						}
 						BigInteger[] chiperText = new BigInteger[chiperString.Length];
 						for (int i = 0; i < chiperString.Length; i++)
 						{
@@ -46,7 +52,7 @@ namespace WebAPI.Controllers
 						Console.WriteLine($"e: {Program.rsa.e} d: {Program.rsa.d} n:{Program.rsa.n}");
 						Console.WriteLine($"File Name : {file.Name}");
 						Console.WriteLine("ChiperText : ");
-						foreach (var i in chiperText)
+						foreach (BigInteger i in chiperText)
 						{
 							Console.Write($"{i}");
 						}
@@ -70,11 +76,11 @@ namespace WebAPI.Controllers
 					return Ok();
 				}
 				else
-					return BadRequest();
+					return BadRequest(new Message($"Dosyalar Okunamadı", Request));
 			}
 			catch (Exception e)
 			{
-				return BadRequest(e);
+				return BadRequest(new Message(e.Message));
 			}
 		}
 	}

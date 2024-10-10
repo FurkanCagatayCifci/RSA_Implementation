@@ -11,7 +11,18 @@ $(
 		const cancel_dialog = jQuery("#cancel-dialog");
 		const loadstatus = jQuery("#loadstatus");
 		var formData = new FormData();
-		var reader;
+		var reader = new FileReader();
+
+		async function getMaxFileLength() {
+			return await $.ajax("http://localhost:5044/api/maxFileLength",
+				{
+					method: "GET",
+					success: (data) => {
+						return data;
+					}
+				}
+			);
+		}
 		async function getApiKey() {
 			return await $.ajax("http://localhost:5044/api/getKey",
 				{
@@ -22,24 +33,33 @@ $(
 				}
 			);
 		}
-		function getFilesLength(formData) {
+		function getFilesLength(data) {
 			var length = 0;
-			if (formData instanceof FileList) {
-				for (var i of formData) {
+			if (data instanceof FileList) {
+				for (var i of data) {
 					length += i.size;
 				}
 			}
-			else if (formData instanceof FormData) {
-				for (var i of formData) {
+			else if (data instanceof FormData) {
+				for (var i of data) {
 					length += i.length;
+				}
+			}
+			else if (data instanceof File) {
+				length += data.size
+			}
+			else if (data instanceof Array) {
+				for (var i of data) {
+					length += i.size;
 				}
 			}
 			return length;
 		}
 		function showSuccess() {
-			submitResult.html("Dosyalar Baþarýyla Yüklendi");
+			submitResult.html("<p>Dosyalar Baþarýyla Yüklendi</p>");
 		}
 		function showError(reason) {
+			console.log(reason);
 			submitResult.html(`<p>${reason}</p>`);
 		}
 		function encryptFileContent(content) {
@@ -128,38 +148,53 @@ $(
 		//	}
 		//}
 		**/
+		function displayFormData(files) {
+			if (files.length > 1) {
+				inputStatusMessage.text("Seçilen Dosyalar");
+				var html = "";
+				for (var file of files) {
+					html = html + `<p>${file.name}</p>`;
+				}
+				inputStatusWrapper.html(`${html}`);
+				inputStatusDiv.html(inputStatusMessage[0].outerHTML + inputStatusWrapper[0].outerHTML + `<p>Toplam Boyut : ${getFilesLength(files)} byte`);
+			} else if (files.length == 1) {
+				const fileName = files[0].name;
+				inputStatusMessage.html(`<p>Seçilen dosya : ${fileName}<p>`);
+				inputStatusWrapper.html("");
+				inputStatusDiv.html(inputStatusMessage[0].outerHTML + inputStatusWrapper[0].outerHTML);
+			}
+		}
+
+
 		var api_key;
 		Promise.resolve(getApiKey()).then((val) => {
 			api_key = val;
 		});
+		var maxFileLength;
+		Promise.resolve(getMaxFileLength()).then((val) => {
+			maxFileLength = val;
+		});
 
 		if (fileInputBox != null) {
 			fileInputBox.addEventListener("change", function () {
-				if (fileInputBox.files.length > 0) {
-					if (getFilesLength(fileInputBox.files) > 1) {
-						if (fileInputBox.files.length > 1) {
-							inputStatusMessage.text("Seçilen Dosyalar");
-							var fileNames = "";
-							for (var file of fileInputBox.files) {
-								fileNames = fileNames + `<p>${file.name}</p>`;
-							}
-							inputStatusWrapper.html(`${fileNames}`);
-						} else if (fileInputBox.files.length == 1) {
-							const fileName = fileInputBox.files[0].name;
-							inputStatusMessage.text(`Seçilen dosya : ${fileName}`);
-							inputStatusWrapper.html("");
-						}
-						for (var file of fileInputBox.files) {
+				formData = new FormData();
+				var files = Array.from(fileInputBox.files);
+				if (files.length > 0) {
+					if (getFilesLength(files) > 1) {
+						for (var i in files) {
+							var file = files[i];
 							reader = new FileReader();
 							if (file instanceof Blob) {
 								const fileName = file.name;
-								reader.readAsText(file, "utf-8");
+								files = files.filter(item => getFilesLength(item) < maxFileLength);
+								if (getFilesLength(file) > maxFileLength) {
+									inputStatusMessage.html(`Dosya uzunluðu maksimum ${maxFileLength} byte olmalý`);
+								}
 
 								reader.onprogress = (event) => {
 									inputStatusMessage.html("<p> Dosyalar Hazýrlanýyor </p>");
-
 								};
-								reader.onerror = async (event) => {
+								reader.onerror = (event) => {
 									inputStatusMessage.text(`<p> Dosya Yüklenemedi : ${file.name}</p>`);
 								};
 								reader.onload = (event) => {
@@ -170,11 +205,13 @@ $(
 											new File(encrypted, fileName,
 												{ type: undefined }
 											));
-										inputStatusMessage.html("<p> Dosyalar Hazýr </p>");
 									}).catch((r) => { console.log(r) });
 								}
+								reader.readAsText(file, "utf-8");
+								displayFormData(files);
 							}
 						}
+
 					}
 					else {
 						submitResult.text(`Geçersiz Dosya Boyutu : ${length}`);
